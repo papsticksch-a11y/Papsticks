@@ -459,9 +459,9 @@ function FXOF(t,n){var f=FLEX[t],c=f&&f.c[n];return (c&&c[3])||(f&&f.fx)||"plain
 function decor(id,t){var el=$(id);el.className="opts sw";el.querySelectorAll("label").forEach(function(l){var i=l.querySelector("input"),sp=l.querySelector("span");if(i&&sp)sp.className="fx-"+FXOF(t,i.value)})}
 function buildTypes(id,key){var el=$(id);el.innerHTML="";el.className="tgroups";TGROUPS.forEach(function(g){var dt=document.createElement("details");dt.className="tg";var sm=document.createElement("summary");var h=document.createElement("span");h.className="tgh";h.textContent=g[0];var sv=document.createElement("small");sv.className="tgsel";sm.appendChild(h);sm.appendChild(sv);dt.appendChild(sm);var row=document.createElement("div");row.className="opts";var sub={};g[1].forEach(function(t){sub[t]=0});dt.appendChild(row);el.appendChild(dt);row.id=id+"-"+g[0].replace(/\W+/g,"");build(row.id,key,sub);dt.dataset.types=g[1].join("|");
 dt.addEventListener("toggle",function(){if(dt.open)[].forEach.call(el.querySelectorAll("details.tg"),function(o){if(o!==dt)o.open=false})})});
-function mark(first){[].forEach.call(el.querySelectorAll("details.tg"),function(d){var on=d.dataset.types.split("|").indexOf(st[key])>-1;d.classList.toggle("has",on);d.querySelector(".tgsel").textContent=on?"✓ "+st[key]:"";if(first)d.open=on})}
+function mark(first){[].forEach.call(el.querySelectorAll("details.tg"),function(d){var on=d.dataset.types.split("|").indexOf(st[key])>-1;d.classList.toggle("has",on);d.querySelector(".tgsel").textContent=on?"✓ "+TL(st[key]):"";if(first)d.open=on})}
 mark(true);el.addEventListener("change",function(){setTimeout(function(){mark(false)},0)})}
-function selCard(id,t,n){var el=$(id);if(!el)return;var f=FLEX[t],c=f.c[n];if(!c)return;var sw=el.querySelector(".selsw");sw.className="selsw fx-"+FXOF(t,n);sw.style.setProperty("--c",c[1]);el.querySelector("b").textContent=n;el.querySelector("small").textContent=T(FXNAME[FXOF(t,n)]||"Uni")+" · "+T("Flex")+" "+c[0]}
+function selCard(id,t,n){var el=$(id);if(!el)return;var f=FLEX[t],c=f.c[n];if(!c)return;var sw=el.querySelector(".selsw");sw.className="selsw fx-"+FXOF(t,n);sw.style.setProperty("--c",c[1]);el.querySelector("b").textContent=CN(n);el.querySelector("small").textContent=T(FXNAME[FXOF(t,n)]||"Uni")+" · "+T("Flex")+" "+c[0]}
 function fxCls(t){return "opts sw fx-"+({"Glitter":"glitter","Sparkle":"sparkle","Métallique":"metal","EasyPuff":"puff","EasyPuff Metallic":"puffmetal"}[t]||"plain")}
 function rebuildFlex(){var t=FLEX[st.ttype],cols={};Object.keys(t.c).forEach(function(k){cols[k]=t.c[k][1]});
 if(!t.c[st.tprint])st.tprint=(t.c["Rose Gold"]?"Rose Gold":Object.keys(t.c)[0]);
@@ -474,12 +474,14 @@ var st={color:"Magenta",finish:"Mate",fx:"",qty:"1",tpub:"Adulte",tcolor:"Blanc"
 var cart=[];
 function eur(n){return n.toFixed(2).replace(".",",")+" CHF"}
 function $(i){return document.getElementById(i)}
+var TLAB={"P.S. Film":"Uni Classique","Hi-5":"Uni Intense","EcoStretch":"Uni Stretch","Poli-Flex Premium":"Uni Premium","Poli-Flex Turbo":"Uni Turbo","P.S. Electric":"Métal Électrique","Brick 600":"Relief Brique","EasyPuff":"Relief Gonflant","EasyPuff Metallic":"Relief Gonflant Métal","EasyReflective":"Réfléchissant"};
+function TL(k){return TLAB[k]||k}function CN(n){return String(n).replace(/^(Premium|Turbo|PS-Film) /,"")}
 function build(id,key,data,sw){
 var el=$(id);
 Object.keys(data).forEach(function(k){
 var l=document.createElement("label");
 var bg=sw?(CSSG[data[k]]||data[k]):"";
-l.innerHTML='<input type="radio" name="'+key+'" value="'+k+'"'+(st[key]===k?" checked":"")+'><span'+(sw?' style="--c:'+bg+'" title="'+k+'" aria-label="'+k+'"':'')+'>'+(sw?"":k)+'</span>';
+l.innerHTML='<input type="radio" name="'+key+'" value="'+k+'"'+(st[key]===k?" checked":"")+'><span'+(sw?' style="--c:'+bg+'" title="'+CN(k)+'" aria-label="'+CN(k)+'"':'')+'>'+(sw?"":((key==="ttype"||key==="bttype")?TL(k):k))+'</span>';
 l.querySelector("input").onchange=function(){st[key]=k;if(key==="color")st.fx="";if(key==="tpub")rebuildTee();if(key==="ttype")rebuildFlex();if(key==="bttype")rebuildBelt();draw()};
 el.appendChild(l)})}
 build("g-color","color",COLORS,true);build("g-fx","fx",FX);build("g-finish","finish",FIN);build("g-qty","qty",QTY);build("g-tpub","tpub",TPUB);buildTypes("g-ttype","ttype");rebuildFlex();build("g-tqty","tqty",TQTY);rebuildTee();
@@ -539,7 +541,7 @@ try{var W=im.naturalWidth,H=im.naturalHeight,c=document.createElement("canvas");
 for(var i=0;i<n;i++){var y=(i/W)|0;if(y>=cut)continue;var r=px[i*4],g=px[i*4+1],b=px[i*4+2],L=(r*299+g*587+b*114)/1000,red=(r-Math.max(g,b))/150;if(red>0.15&&r>60){cls[i]=2;rw[i]=Math.min(1,red);sh[i]=Math.min(1,r/230)}else if(L<80){cls[i]=1;sh[i]=Math.max(0,Math.min(1,(L-10)/14))}}
 c.className="teecanvas";c.setAttribute("role","img");c.setAttribute("aria-label",im.alt);im.parentNode.insertBefore(c,im);im.style.display="none";TR={c:c,x:x,d:d,base:new Uint8ClampedArray(px),cls:cls,sh:sh,rw:rw,W:W}}catch(e){TR=null}teeColor()}
 var PIP=null;
-function trecap(){try{$("rc1").textContent=T(st.tpub)+" · "+T(st.tsize)+" · "+T(st.tcolor);$("rc2").textContent=st.ttype;$("rc3").textContent=st.tprint}catch(e){}}
+function trecap(){try{$("rc1").textContent=T(st.tpub)+" · "+T(st.tsize)+" · "+T(st.tcolor);$("rc2").textContent=TL(st.ttype);$("rc3").textContent=CN(st.tprint)}catch(e){}}
 function pipDraw(){trecap();if(!TR)return;if(!PIP){var d=document.createElement("div");d.id="teepip";d.hidden=true;d.setAttribute("aria-hidden","true");var c=document.createElement("canvas");c.width=TR.c.width;c.height=TR.c.height;var l=document.createElement("small");d.appendChild(c);d.appendChild(l);d.onclick=function(){TR.c.scrollIntoView({behavior:"smooth",block:"center"})};document.body.appendChild(d);PIP={d:d,c:c,l:l,mainVis:true,teesVis:false};
 if("IntersectionObserver" in window){new IntersectionObserver(function(es){es.forEach(function(e){PIP.mainVis=e.isIntersecting});pipShow()},{threshold:.35}).observe(TR.c);new IntersectionObserver(function(es){es.forEach(function(e){PIP.teesVis=e.isIntersecting});pipShow()},{threshold:0}).observe($("tees"))}}
 PIP.c.getContext("2d").drawImage(TR.c,0,0);try{PIP.l.textContent=st.tprint+" · "+T(FXNAME[FXOF(st.ttype,st.tprint)]||"Uni")}catch(e){}}
@@ -644,7 +646,7 @@ var hs=[];ls.forEach(function(l){if(hs.indexOf(l.h)<0)hs.push(l.h)});
 var q="query{"+hs.map(function(h,i){return "p"+i+':product(handle:"'+h+'"){variants(first:250){nodes{id availableForSale selectedOptions{name value}}}}'}).join(" ")+"}";
 b.disabled=true;var old=b.textContent;b.textContent=T("Préparation du paiement…");
 var win=null;if(window.self!==window.top){try{win=window.open("","_blank")}catch(e){}}
-sfq(q).then(function(d){var lines=[];ls.forEach(function(l){var p=d["p"+hs.indexOf(l.h)];if(!p)throw new Error("produit "+l.h);var vs=p.variants.nodes,v=vs.filter(function(x){return x.selectedOptions.every(function(so){return so.name==="Title"||l.o[so.name]===undefined||l.o[so.name]===so.value})&&Object.keys(l.o).every(function(k){return x.selectedOptions.some(function(so){return so.name===k&&so.value===l.o[k]})})})[0];
+sfq(q).then(function(d){var lines=[];ls.forEach(function(l){var p=d["p"+hs.indexOf(l.h)];if(!p)throw new Error("produit "+l.h);var vs=p.variants.nodes,o=l.o,eq=function(k,val){return val===o[k]||(k==="Type de flocage"&&val===TL(o[k]))};var cand=vs.filter(function(x){return Object.keys(o).every(function(k){return x.selectedOptions.some(function(so){return so.name===k&&eq(k,so.value)})})});var v=cand.filter(function(x){return x.selectedOptions.some(function(so){return so.name==="Type de flocage"&&so.value===TL(o["Type de flocage"])})})[0]||cand[0];
  if(!v)throw new Error("variante "+l.h+" "+JSON.stringify(l.o));lines.push({merchandiseId:v.id,quantity:Math.max(1,Math.round(l.q)),attributes:l.a.slice(0,250)})});
  var inp={lines:lines},ml=$("o-mail").value.trim(),cc=SHIP==="ch"?"CH":(SHIP==="fr"?"FR":"");var bi={};if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(ml))bi.email=ml;if(cc)bi.countryCode=cc;if(bi.email||bi.countryCode)inp.buyerIdentity=bi;
  return sfq("mutation($input:CartInput!){cartCreate(input:$input){cart{checkoutUrl} userErrors{field message}}}",{input:inp})})
