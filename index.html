@@ -567,7 +567,7 @@ var SHOP={dom:"jxiufu-6d.myshopify.com",tok:"4a6a6d25e56846f03d47dd12e8367909",v
 function sfq(q,vars){return fetch("https://"+SHOP.dom+"/api/"+SHOP.v+"/graphql.json",{method:"POST",headers:{"Content-Type":"application/json","X-Shopify-Storefront-Access-Token":SHOP.tok},body:JSON.stringify({query:q,variables:vars||{}})}).then(function(r){return r.json()}).then(function(j){if(j.errors&&j.errors.length)throw new Error(j.errors[0].message);return j.data})}
 function flexTypeOf(code){for(var k in FLEX){var c=FLEX[k].c||{};for(var n in c)if(code&&code.indexOf(c[n][0])>-1)return k}return ""}
 function shopLine(it){var a=[],o=it.o||{},add=function(k,v){if(v!==undefined&&v!==null&&String(v).trim()!=="")a.push({key:k,value:String(v)})};
-try{add("Détail",lineText(it))}catch(e){}
+var simple=it.kind==="item"&&["air","bob","ptee","reac"].indexOf(it.k)>-1;if(simple)try{add("Détail",lineText(it))}catch(e){}
 if(it.kind==="tee"){var ty=it.type||flexTypeOf(it.ref);add("Couleur du t-shirt",it.color);add("Flocage",it.ref);return{h:it.pub==="Enfant"?"t-shirt-gtz-enfant":"t-shirt-gtz-adulte",o:{"Taille":it.size,"Type de flocage":ty},q:Number(it.qty),a:a}}
 if(it.kind==="item"){var k=it.k,q=Number(it.q)||1;
  if(k==="belt"){add("Flocage",o.bref);add("Texte",o.btxt);if(o.btxt)add("Dimensions",o.bl+" × "+o.bh+" cm");return{h:"couvre-ceintures",o:{"Type de flocage":o.btype||flexTypeOf(o.bref)},q:q,a:a}}
