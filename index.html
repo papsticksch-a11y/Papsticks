@@ -190,6 +190,11 @@ header{min-height:0;padding-top:50vh}}
 .trecap{display:block}}
 .legal details{border-top:1px solid var(--line);padding:4px 0}.legal summary{cursor:pointer;padding:10px 0;font-weight:700}.lgtxt{font-size:.9rem;line-height:1.55;padding-bottom:10px}.lgtxt h3{font-size:.95rem;margin:14px 0 4px;color:var(--pink)}.lgtxt p{margin:0 0 8px}
 .cgvok{display:flex;gap:10px;align-items:flex-start;margin:6px 0 10px;font-size:.9rem;cursor:pointer}.cgvok input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--pink)}
+@media(min-width:980px){.part.two:not(.one){grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px}
+.part.two:not(.one) .stick{top:max(76px,calc(50vh - 230px))}
+.part.two:not(.one) .stick .preview{min-height:280px;padding:20px}
+.part.two:not(.one) .stick svg{width:100%;height:auto}}
+@media(max-width:819px){.part.two .stick .preview{min-height:110px}.part.two .stick svg{max-height:100px}}
 </style>
 </head>
 <body>
@@ -506,7 +511,7 @@ var hx=COLORS[st.color]||"#ffffff",lum=1;
 if(hx.length===7)lum=(parseInt(hx.substr(1,2),16)*299+parseInt(hx.substr(3,2),16)*587+parseInt(hx.substr(5,2),16)*114)/255000;
 $("prev").className="preview"+(lum<0.25&&!st.fx?" light":"");
 $("cname").textContent=st.fx?"":T("Vinyle")+" Ri-Mark Optima "+CODES[st.color]+SEP()+st.color;
-var pct=30+70*(L()-5)/95;$("wrap").style.width=pct+"%";
+var pct=62+38*(L()-5)/95;$("wrap").style.width=pct+"%";
 $("lenv").textContent=L()+" cm";
 document.querySelectorAll('#g-color input').forEach(function(i){i.checked=!st.fx&&i.value===st.color});document.querySelectorAll('#g-fx input').forEach(function(i){i.checked=i.value===st.fx});
 
