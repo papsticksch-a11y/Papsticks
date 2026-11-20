@@ -240,6 +240,7 @@ header{min-height:0;padding-top:50vh}}
 #addmore{margin:4px 0 10px}#paynow{margin-top:0}
 .stkgrid[hidden]{display:none}
 #ggrid{margin-top:10px}#ggrid:empty{display:none}#ggrid figure{margin:0}
+#fs-fin,#fs-gfin{display:none!important}
 </style>
 </head>
 <body>
@@ -304,7 +305,7 @@ header{min-height:0;padding-top:50vh}}
 <fieldset><legend>Ton logo ou ton dessin</legend><input type="file" id="ifile" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf,.pdf,.ai,.eps"><div class="ibox" id="ibox"><span>Aucune image choisie</span></div><p class="hint" id="imsg" role="status"></p></fieldset>
 <fieldset><legend><label for="icontact">Tes coordonnées (obligatoire)</label></legend><input type="text" id="icontact" placeholder="E-mail, Instagram ou WhatsApp" autocomplete="off"><p class="hint">Pour te répondre, ou te prévenir si ton logo ne peut pas être découpé.</p></fieldset>
 <fieldset><div class="len"><legend style="margin:0">Longueur souhaitée</legend><b id="ilenv">10 cm</b></div><input type="range" id="ilen" min="10" max="100" step="1" value="10" aria-label="Longueur en centimètres"><div class="opts" id="g-ichips" style="margin-top:8px"></div></fieldset>
-<fieldset><legend>Finition</legend><div class="opts" id="g-ifin"></div></fieldset>
+<fieldset hidden><legend>Finition</legend><div class="opts" id="g-ifin"></div></fieldset>
 <fieldset><legend>Quantité</legend><div class="opts" id="g-iqty"></div></fieldset>
 <fieldset><legend><label for="inote">Décris ta demande</label></legend><textarea id="inote" rows="3" placeholder="Couleurs de vinyle, nombre de couches, support, délai souhaité…"></textarea></fieldset>
 <button class="main" type="button" id="iadd">Préparer ma demande de devis</button>
@@ -516,7 +517,7 @@ function trAll(root){if(root.nodeType===3){trText(root);return}if(root.nodeType!
 var COLORS={"Permanent Blue":"#2862b8","Mint":"#97e4d2","Medium Green":"#1f9468","Light Grey":"#d2d4d4","Black":"#0c0c0c","Copper":"#b9772f","Azur Blue":"#2f74c4","Aqua Green":"#3ec6bc","Light Green":"#17b04e","Grey":"#a0a3a3","Anthracite":"#333537","Transparent":"#e9ebf0","Olympic Blue":"#3aa5d8","Turquoise":"#2e9fb0","Green":"#5ec61a","Medium Grey":"#858b8d","Silver":"#a5a6aa","Matt White Contrast":"#f3f3f3","Ice Blue":"#63c6e3","Forest Green":"#064b1a","Lime Green":"#8fd21a","Charcoal":"#44464a","Gold":"#b99a4c","Matt Black":"#1a1b1d","White Contrast":"#f6f6f6","Medium Yellow":"#f5bc0d","Red":"#d92b27","Nut Brown":"#d46a0c","Pink":"#f3a0cf","Dark Blue":"#20399a","Primrose":"#f7e44f","Orange":"#f58606","Dark Red":"#db1f3a","Light Brown":"#c29a72","Lilac":"#dcb0e6","Ultra Blue":"#3a31a6","Light Yellow":"#efd91c","Light Orange":"#f58a07","Wine Red":"#b8122f","Beige":"#ecd9aa","Lavender":"#9a78cc","Brilliant Blue":"#2a3fb0","Yellow":"#f1d51a","Dark Orange":"#ee5a0b","Burgundy":"#8f0b2c","Light Beige":"#ddcdb0","Purple":"#7a35b8","Vivid Blue":"#2250b4","Sun Yellow":"#e5b909","Light Red":"#e53b13","Brown":"#5c2a20","Magenta":"#e0328a","Violet":"#7b0fb5","Marine Blue":"#1359b0"};
 var CODES={"Permanent Blue":460,"Mint":475,"Medium Green":480,"Light Grey":409,"Black":401,"Copper":474,"Azur Blue":459,"Aqua Green":476,"Light Green":482,"Grey":404,"Anthracite":402,"Transparent":499,"Olympic Blue":458,"Turquoise":477,"Green":485,"Medium Grey":407,"Silver":481,"Matt White Contrast":498,"Ice Blue":457,"Forest Green":483,"Lime Green":487,"Charcoal":403,"Gold":471,"Matt Black":497,"White Contrast":400,"Medium Yellow":417,"Red":430,"Nut Brown":447,"Pink":441,"Dark Blue":472,"Primrose":410,"Orange":420,"Dark Red":433,"Light Brown":448,"Lilac":454,"Ultra Blue":470,"Light Yellow":419,"Light Orange":423,"Wine Red":436,"Beige":405,"Lavender":455,"Brilliant Blue":468,"Yellow":412,"Dark Orange":426,"Burgundy":435,"Light Beige":449,"Purple":451,"Vivid Blue":466,"Sun Yellow":415,"Light Red":429,"Brown":445,"Magenta":489,"Violet":452,"Marine Blue":464};
 var CSSG={"g:gmiami":"linear-gradient(135deg,#ff2e93,#19e3d6)","g:gnuit":"linear-gradient(135deg,#8b5cf6,#2f6bff,#19e3d6)"};
-var FIN={"Mate":0,"Brillante":0};
+var FIN={"Brillante":0};
 var FX={"Holographique":1,"Chrome":1};
 var TEE=30,TEEK=20;var TSUP={"Glitter":2,"Sparkle":1};
 function tunit(){return (st.tpub==="Enfant"?TEEK:TEE)+(TSUP[st.ttype]||0)}
@@ -545,7 +546,7 @@ var TSIZEA={"XS":0,"S":0,"M":0,"L":0,"XL":0,"XXL":0,"3XL":0,"4XL":0};
 var TSIZEK={"2 ans":0,"4 ans":0,"6 ans":0,"8 ans":0,"10 ans":0,"12 ans":0};
 var TQTY={"1":0,"2":0,"3":0,"5":0,"10":0,"25":0,"50":0,"100":0,"200":0};
 var QTY={"1":0,"2":.05,"5":.1,"10":.2,"25":.3,"50":.4};
-var st={vcolor:"Noir profond",vttype:"Poli-Flex Premium",vtprint:"Premium Black",color:"Magenta",finish:"Mate",fx:"",qty:"1",tpub:"Adulte",tcolor:"Blanc",ttype:"Glitter",tprint:"Rose Gold",tsize:"M",tqty:"1",bttype:"Poli-Flex Turbo",btprint:"Orange"};
+var st={vcolor:"Noir profond",vttype:"Poli-Flex Premium",vtprint:"Premium Black",color:"Magenta",finish:"Brillante",fx:"",qty:"1",tpub:"Adulte",tcolor:"Blanc",ttype:"Glitter",tprint:"Rose Gold",tsize:"M",tqty:"1",bttype:"Poli-Flex Turbo",btprint:"Orange"};
 var cart=[];
 function eur(n){return n.toFixed(2).replace(".",",")+" CHF"}
 function $(i){return document.getElementById(i)}
@@ -819,10 +820,10 @@ function cur(){return Math.round(t.scrollLeft/t.clientWidth)}
 function mark(){var x=cur();Array.prototype.forEach.call(dt.children,function(e,i){e.className=i===x?"on":""})}
 t.addEventListener("scroll",mark);mark();
 c.querySelectorAll(".cnav button").forEach(function(b){b.onclick=function(){var x=Math.max(0,Math.min(n-1,cur()+Number(b.getAttribute("data-d"))));t.scrollTo({left:x*t.clientWidth,behavior:"smooth"})}})});
-var iq="1",ifn="Mate",MAIL="Papsticks.ch@gmail.com";
+var iq="1",ifn="Brillante",MAIL="Papsticks.ch@gmail.com";
 var IQ={"1":0,"2":0,"5":0,"10":0,"25":0,"50":0,"100":0};
 radios("g-iqty","iq",Object.keys(IQ),iq,function(v){iq=v});
-radios("g-ifin","ifn",["Mate","Brillante"],ifn,function(v){ifn=v});
+radios("g-ifin","ifn",["Brillante"],ifn,function(v){ifn=v});
 [10,20,30,50,100].forEach(function(n){var b=document.createElement("label");b.innerHTML='<span>'+n+' cm</span>';b.querySelector("span").style.cursor="pointer";b.onclick=function(){$("ilen").value=n;ip()};$("g-ichips").appendChild(b)});
 function ip(){$("ilenv").textContent=$("ilen").value+" cm"}
 $("ilen").oninput=ip;ip();
@@ -878,13 +879,13 @@ if(WA){wl.href="https://wa.me/"+WA+"?text="+encodeURIComponent(t);wl.hidden=fals
 $("vouthint").textContent=T("Ta demande est prête. Envoie-la, et joins ton fichier au message :")+" « "+vfileName+" »";$("vout").scrollIntoView({block:"nearest"})};
 $("vcopy").onclick=function(){var t=$("vtext");t.select();try{navigator.clipboard.writeText(t.value);$("vcopy").textContent=T("Copié")}catch(e){document.execCommand&&document.execCommand("copy");$("vcopy").textContent=T("Copié")}};
 $("icopy").onclick=function(){var t=$("itext");t.select();try{navigator.clipboard.writeText(t.value);$("icopy").textContent=T("Copié")}catch(e){document.execCommand&&document.execCommand("copy");$("icopy").textContent=T("Copié")}};
-var gs={color:"Gold",fx:"",fin:"Mate",q:"1"};
+var gs={color:"Gold",fx:"",fin:"Brillante",q:"1"};
 function gL(){return Number($("glen").value)}
 function gU(){var l=gL(),b=l<=15?5:(l<=30?10:20);return b+(gs.fx?(l<=30?1:(l<=50?2.5:5)):0)}
 function gDraw(){$("glenv").textContent="Ø "+gL()+" cm";var c=gs.fx==="Holographique"?"#c9a7ff":(gs.fx==="Chrome"?"#c8ccd4":(COLORS[gs.color]||"#c9a24a"));if(c.indexOf("g:")===0)c="#ff2e93";$("gz").setAttribute("fill",c);$("gz").setAttribute("stroke",c);$("gcname").textContent=gs.fx?"":T("Vinyle")+" "+CODES[gs.color]+SEP()+gs.color;$("fs-gfin").hidden=!!gs.fx;$("gprice").textContent=eur(gU()*Number(gs.q));document.querySelectorAll("#g-gcolor input").forEach(function(i){i.checked=!gs.fx&&i.value===gs.color});document.querySelectorAll("#g-gfx input").forEach(function(i){i.checked=i.value===gs.fx})}
 (function(){var el=$("g-gcolor");Object.keys(COLORS).forEach(function(k){var bg=CSSG[COLORS[k]]||COLORS[k],l=document.createElement("label");l.innerHTML='<input type="radio" name="gcolor" value="'+k+'"'+(gs.color===k?" checked":"")+'><span style="--c:'+bg+'" title="'+k+'" aria-label="'+k+'"></span>';l.querySelector("input").onchange=function(){gs.color=k;gs.fx="";gDraw()};el.appendChild(l)})})();
 radios("g-gfx","gfx",["Holographique","Chrome"],"",function(v){gs.fx=v;gDraw()});
-radios("g-gfin","gfin",["Mate","Brillante"],"Mate",function(v){gs.fin=v});
+radios("g-gfin","gfin",["Brillante"],"Brillante",function(v){gs.fin=v});
 radios("g-gq","gq",Object.keys(QTY),"1",function(v){gs.q=v;gDraw()});
 $("glen").oninput=gDraw;gDraw();
 $("gadd").onclick=function(){var q=Number(gs.q),it={kind:"item",k:"gstk",q:q,o:{len:gL(),color:gs.color,fx:gs.fx,fin:gs.fin},price:gU()*q};var td=itemTD(it);it.title=td[0];it.detail=td[1];cart.push(it);$("done").innerHTML="";renderCart();go("cart")};
