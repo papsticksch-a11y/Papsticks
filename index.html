@@ -244,6 +244,7 @@ header{min-height:0;padding-top:50vh}}
 .bgsw{display:flex;justify-content:flex-end;gap:6px;margin:0 0 6px}.bgsw button{font:inherit;font-size:.75rem;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(10,4,32,.6);color:var(--muted);cursor:pointer}
 .bgsw button[aria-pressed="true"]{border-color:var(--pink);color:#fff;background:rgba(255,63,164,.25)}.bgsw button[data-bg="light"]::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#ece8fa;margin-right:5px;vertical-align:-1px}.bgsw button[data-bg="dark"]::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#120a2e;border:1px solid #888;margin-right:5px;vertical-align:-1px}
 .part[hidden],.part.two[hidden]{display:none!important}
+#gadmin{display:none!important}
 </style>
 </head>
 <body>
@@ -913,7 +914,7 @@ if(false){var rb=document.createElement("button");rb.type="button";rb.className=
 box.appendChild(f)})}
 G.render=render;if(!window.claude||!window.claude.use)return;
 Promise.all([claude.use("db"),claude.use("assets")]).then(function(r){G.db=r[0];G.assets=r[1];if(!G.db)return;
-if(G.assets){$("gadmin").hidden=false;$("gpick").onclick=function(){$("gfile").click()};
+if(G.assets){$("gadmin").hidden=true;$("gpick").onclick=function(){$("gfile").click()};
 $("gfile").onchange=function(){var files=[].slice.call(this.files||[]),cap=$("gcap").value.trim(),done=0;if(!files.length)return;$("gpick").disabled=true;$("gmsg").textContent=T("Envoi en cours…");
 (function next(i){if(i>=files.length){$("gpick").disabled=false;$("gfile").value="";$("gmsg").textContent=done+" "+T("photo(s) ajoutée(s).");return}
 shrink(files[i]).then(function(b){return G.assets.upload(b,{type:"image/jpeg"})}).then(function(up){return G.db.collection("gallery").add({asset:up.id,caption:cap,t:Date.now()})}).then(function(){done++;next(i+1)}).catch(function(e){$("gmsg").textContent=T("Une photo n’a pas pu être envoyée")+" ("+(e&&e.code||"erreur")+").";next(i+1)})})(0)}}
