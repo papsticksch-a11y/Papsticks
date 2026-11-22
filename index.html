@@ -396,7 +396,7 @@ h2.nf.on{animation:gzneon 1.1s both}
 #cartfab[hidden]{display:flex!important;opacity:0;transform:translateY(-20px);pointer-events:none}
 #cartfab .cn{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#ff2e93;font-size:.8rem}
 #cartfab.bump{animation:addok .5s}
-@media(max-width:819px){#cartfab{top:calc(62px + env(safe-area-inset-top,0px));right:8px;padding:6px 10px;gap:5px;font-size:.85rem;border-width:1.5px}#cartfab #cft{display:none}body.hascart .bgsw{padding-right:58px;justify-content:flex-start}#cartfab .cn{min-width:18px;height:18px;font-size:.72rem}}</style>
+@media(max-width:819px){#cartfab{top:calc(62px + env(safe-area-inset-top,0px));right:8px;padding:6px 10px;gap:5px;font-size:.85rem;border-width:1.5px}#cartfab #cft{display:none}body.hascart .bgsw{padding-right:58px;justify-content:flex-start}#cartfab .cn{min-width:18px;height:18px;font-size:.72rem}}@media(max-width:819px){.realsz{display:none!important}}</style>
 </head>
 <body>
 <header>
@@ -1256,9 +1256,9 @@ function sched(){var cf=CFG[G],SX=60/cf.bpm/4;while(next<c.currentTime+.12){PLAY
 function start(){if(!c)init();c.resume();next=c.currentTime+.05;step=0;M.gain.cancelScheduledValues(c.currentTime);M.gain.setTargetAtTime(CFG[G].vol,c.currentTime,.4);clearInterval(tm);tm=setInterval(sched,25);on=true;ui()}
 function stop(){if(!c)return;M.gain.setTargetAtTime(.0001,c.currentTime,.15);var t2=tm;setTimeout(function(){clearInterval(t2)},600);tm=null;on=false;ui()}
 var NAMES={funk:"Funk",techno:"Techno",ug:"House underground",jp:"Japon 和"};
-function ui(){B.classList.toggle("on",on);B.setAttribute("aria-pressed",on?"true":"false");B.querySelector(".fl").textContent=on?NAMES[G]:(window.T?T("Musique"):"Musique");B.title=on?"Couper la musique":"Lancer la musique";GB.hidden=!on;[].forEach.call(GB.children,function(x){x.setAttribute("aria-pressed",x.getAttribute("data-g")===G?"true":"false")})}
-GB.addEventListener("click",function(e){var x=e.target.closest("button");if(!x)return;G=x.getAttribute("data-g");try{localStorage.setItem("pap_genre",G)}catch(e2){}if(on){M.gain.setTargetAtTime(.0001,c.currentTime,.05);setTimeout(start,180)}else ui()});
-B.addEventListener("click",function(){on?stop():start()});document.addEventListener("visibilitychange",function(){if(document.hidden&&on)stop()});ui()})();</script><script>(function(){var H=document.querySelector(".gtzhero"),P=document.getElementById("part-gtz");if(!H)return;H.style.pointerEvents="auto";H.style.cursor="pointer";H.title="Turbo 🔊";
+function ui(){B.classList.toggle("on",on);B.setAttribute("aria-pressed",on?"true":"false");B.querySelector(".fl").textContent=on?NAMES[G]:(window.T?T("Musique"):"Musique");B.title=on?"Couper la musique":"Lancer la musique";[].forEach.call(GB.children,function(x){x.setAttribute("aria-pressed",x.getAttribute("data-g")===G?"true":"false")})}
+GB.addEventListener("click",function(e){var x=e.target.closest("button");if(!x)return;G=x.getAttribute("data-g");try{localStorage.setItem("pap_genre",G)}catch(e2){}GB.hidden=true;if(on){M.gain.setTargetAtTime(.0001,c.currentTime,.05);setTimeout(start,180)}else start()});
+B.addEventListener("click",function(e){e.stopPropagation();if(on){stop();GB.hidden=true}else GB.hidden=!GB.hidden});document.addEventListener("click",function(e){if(!GB.hidden&&!e.target.closest("#musicbox"))GB.hidden=true});document.addEventListener("visibilitychange",function(){if(document.hidden&&on)stop()});ui()})();</script><script>(function(){var H=document.querySelector(".gtzhero"),P=document.getElementById("part-gtz");if(!H)return;H.style.pointerEvents="auto";H.style.cursor="pointer";H.title="Turbo 🔊";
 var hint=document.createElement("i");hint.className="gzhint";hint.textContent=(window.T?T("Clique pour le turbo 🔊"):"Clique pour le turbo 🔊");H.appendChild(hint);var busy=0,played=0;
 function turbo(){try{if(localStorage.getItem("pap_snd")==="0")return}catch(e){}if(busy)return;var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;busy=1;setTimeout(function(){busy=0},1900);var c=window.__papAC||(window.__papAC=new AC());if(c.state==="suspended")c.resume();var t=c.currentTime+.03;
 var m=c.createGain();m.gain.value=.8;m.connect(c.destination);
