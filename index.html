@@ -262,10 +262,10 @@ a,button,label,select,summary,[role=tab],.stkcard,.why,.part-tab,[onclick],input
 @keyframes isub{to{opacity:.9}}
 #intro .curl{position:absolute;left:0;top:0;width:300vw;height:60px;transform-origin:50% 50%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35) 15%,#f4f4f6 45%,#c9cad4 75%,rgba(0,0,0,0));opacity:0;pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.35)}
 /* coin qui se décolle */
-.stkcard,.why,.selcard{position:relative}
-.stkcard::after,.why::after,.selcard::after,.gstatic figure::after{content:"";position:absolute;right:0;bottom:0;width:0;height:0;border-radius:14px 0 14px 0;background:linear-gradient(315deg,#0b0420 0 50%,#fafafa 50%,#c9c9d3 78%,#8f8fa0 100%);box-shadow:-3px -3px 8px rgba(0,0,0,.45);transition:width .28s cubic-bezier(.3,1.6,.5,1),height .28s cubic-bezier(.3,1.6,.5,1);pointer-events:none;z-index:2}
+.stkcard,.selcard{position:relative}
+.stkcard::after,.selcard::after,.gstatic figure::after{content:"";position:absolute;right:0;bottom:0;width:0;height:0;border-radius:14px 0 14px 0;background:linear-gradient(315deg,#0b0420 0 50%,#fafafa 50%,#c9c9d3 78%,#8f8fa0 100%);box-shadow:-3px -3px 8px rgba(0,0,0,.45);transition:width .28s cubic-bezier(.3,1.6,.5,1),height .28s cubic-bezier(.3,1.6,.5,1);pointer-events:none;z-index:2}
 .gstatic figure{position:relative;container-type:inline-size}.gstatic figure::after{bottom:auto;top:100cqw;border-radius:12px 0 12px 0}
-.stkcard:hover::after,.why:hover::after,.selcard:hover::after{width:34px;height:34px}
+.stkcard:hover::after,.selcard:hover::after{width:34px;height:34px}.why::after{transition:width .28s cubic-bezier(.3,1.6,.5,1),height .28s cubic-bezier(.3,1.6,.5,1);z-index:2}.why:hover::after{width:36px;height:36px}
 .gstatic figure:hover::after{width:38px;height:38px;top:calc(100cqw - 38px)}
 .gstatic figure:hover img{transform:rotate(-.6deg)}.gstatic img{transition:transform .25s}
 /* trace de lame */
