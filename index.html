@@ -380,7 +380,7 @@ h2.nf.on{animation:gzneon 1.1s both}
 .bladesweep{position:absolute;top:-10%;bottom:-10%;width:3px;left:0;background:linear-gradient(#fff,#3ff2ff);box-shadow:0 0 10px #3ff2ff,0 0 22px #3ff2ff;border-radius:2px;pointer-events:none;opacity:0;z-index:4}
 .bladesweep.go{animation:blade .55s cubic-bezier(.5,0,.5,1)}
 @keyframes blade{0%{left:-2%;opacity:1}90%{opacity:1}100%{left:102%;opacity:0}}
-#g-color label span,#g-fx label span{transition:transform .15s}#g-color label:hover span,#g-fx label:hover span{transform:scale(1.18)}
+#g-color label span,#g-fx label span,#g-font label span{transition:transform .15s}#g-color label:hover span,#g-fx label:hover span{transform:scale(1.18)}#g-font label:hover span{transform:scale(1.07)}
 .mini{position:fixed;z-index:9999;pointer-events:none;font:700 .7rem Audiowide,system-ui,sans-serif;padding:3px 7px;border-radius:7px;border:1.5px solid #fff;color:#fff;animation:mini .9s cubic-bezier(.2,.7,.3,1) forwards}
 @keyframes mini{0%{opacity:1;transform:translate(-50%,-50%) scale(.4) rotate(0)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.1) rotate(var(--r))}}
 .addok{animation:addok .5s}@keyframes addok{0%{transform:scale(1)}40%{transform:scale(.93)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
@@ -1273,6 +1273,10 @@ function hov(id,key){var g=document.getElementById(id);if(!g||!fine||typeof st==
  g.addEventListener("mouseleave",function(){if(saved){st.color=saved.color;st.fx=saved.fx;saved=null;try{draw()}catch(x){}}});
  g.addEventListener("change",function(){saved=null})}
 hov("g-color","color");hov("g-fx","fx");
+(function(){var g=document.getElementById("g-font");if(!g||!fine||typeof st==="undefined")return;var saved=null;
+ g.addEventListener("mouseover",function(e){var l=e.target.closest("label");if(!l)return;var v=l.querySelector("input").value;if(saved===null)saved=st.font;if(st.font!==v){st.font=v;try{draw()}catch(x){}if(document.fonts&&document.fonts.load)document.fonts.load("20px \""+v+"\"").then(function(){if(st.font===v)try{draw()}catch(x){}})}});
+ g.addEventListener("mouseleave",function(){if(saved!==null){st.font=saved;saved=null;try{draw()}catch(x){}}});
+ g.addEventListener("change",function(){saved=null})})();
 /* 4. petite explosion de stickers quand on ajoute au panier */
 var W=["PAP","★","GTZ","#183","ステッカー","✓"],C=["#ff2e93","#3ff2ff","#7b3cff","#ffd400"];
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest('#add,#tadd,#gadd,[id^="add-"]');if(!b)return;b.classList.remove("addok");void b.offsetWidth;b.classList.add("addok");if(RM)return;setTimeout(function(){var h=document.querySelector("#cart h2")||b,r=h.getBoundingClientRect(),cx=r.left+Math.min(r.width/2,120),cy=r.top+r.height/2;
