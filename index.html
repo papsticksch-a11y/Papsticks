@@ -245,6 +245,11 @@ header{min-height:0;padding-top:50vh}}
 .bgsw button[aria-pressed="true"]{border-color:var(--pink);color:#fff;background:rgba(255,63,164,.25)}.bgsw button[data-bg="light"]::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#ece8fa;margin-right:5px;vertical-align:-1px}.bgsw button[data-bg="dark"]::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#120a2e;border:1px solid #888;margin-right:5px;vertical-align:-1px}
 .part[hidden],.part.two[hidden]{display:none!important}
 #gadmin{display:none!important}
+@media (hover:hover) and (pointer:fine){html,body{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%3E%3Cpath%20d%3D%22M3%202%20L3%2022%20L8.5%2017%20L12.5%2026%20L16%2024.5%20L12%2015.7%20L19.5%2015.7%20Z%22%20fill%3D%22%23ff2e93%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") 3 2,auto}
+a,button,label,select,summary,[role=tab],.stkcard,.why,.part-tab,[onclick],input[type=radio],input[type=checkbox]{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%3E%3Cpath%20d%3D%22M3%202%20L3%2022%20L8.5%2017%20L12.5%2026%20L16%2024.5%20L12%2015.7%20L19.5%2015.7%20Z%22%20fill%3D%22%233ff2ff%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") 3 2,pointer!important}
+#cring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:2px solid #3ff2ff;border-radius:50%;pointer-events:none;z-index:99999;box-shadow:0 0 12px #3ff2ff,inset 0 0 8px rgba(63,242,255,.4);transition:width .18s,height .18s,margin .18s,border-color .18s,box-shadow .18s,opacity .25s;opacity:0}
+#cring.on{opacity:.85}#cring.big{width:52px;height:52px;margin:-26px 0 0 -26px;border-color:#ff2e93;box-shadow:0 0 16px #ff2e93,inset 0 0 10px rgba(255,46,147,.4)}#cring.down{width:24px;height:24px;margin:-12px 0 0 -12px}}
+@media (prefers-reduced-motion:reduce),(hover:none){#cring{display:none}}
 </style>
 </head>
 <body>
@@ -962,5 +967,8 @@ new MutationObserver(function(ms){if(LANG==="fr")return;ms.forEach(function(m){m
 
 (function(){var el=$("g-font");FONTS.forEach(function(f){var l=document.createElement("label");l.innerHTML='<input type="radio" name="font"'+(f===st.font?" checked":"")+'><span style="font-family:\''+f+'\',sans-serif">'+f+'</span>';l.querySelector("input").value=f;l.querySelector("input").onchange=function(){st.font=f;var go=function(){try{draw()}catch(e){}};go();if(document.fonts&&document.fonts.load)document.fonts.load("58px \'"+f+"\'").then(go,go)};el.appendChild(l)});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){try{draw()}catch(e){}})})();
 </script>
-</body>
+<div id="cring" aria-hidden="true"></div><script>(function(){if(!matchMedia("(hover:hover) and (pointer:fine)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var r=document.getElementById("cring"),x=-99,y=-99,cx=x,cy=y,go=0;var sel="a,button,label,select,summary,[role=tab],.stkcard,.why,input[type=radio],input[type=checkbox]";
+addEventListener("mousemove",function(e){x=e.clientX;y=e.clientY;r.classList.add("on");var t=e.target;r.classList.toggle("big",!!(t.closest&&t.closest(sel)));if(!go){go=1;requestAnimationFrame(f)}},{passive:true});
+document.addEventListener("mouseleave",function(){r.classList.remove("on")});addEventListener("mousedown",function(){r.classList.add("down")});addEventListener("mouseup",function(){r.classList.remove("down")});
+function f(){cx+=(x-cx)*.22;cy+=(y-cy)*.22;r.style.transform="translate("+cx+"px,"+cy+"px)";if(Math.abs(x-cx)>.3||Math.abs(y-cy)>.3)requestAnimationFrame(f);else go=0}})();</script></body>
 </html>
