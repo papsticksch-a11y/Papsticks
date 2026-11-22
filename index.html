@@ -250,6 +250,32 @@ a,button,label,select,summary,[role=tab],.stkcard,.why,.part-tab,[onclick],input
 #cring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:2px solid #3ff2ff;border-radius:50%;pointer-events:none;z-index:99999;box-shadow:0 0 12px #3ff2ff,inset 0 0 8px rgba(63,242,255,.4);transition:width .18s,height .18s,margin .18s,border-color .18s,box-shadow .18s,opacity .25s;opacity:0}
 #cring.on{opacity:.85}#cring.big{width:52px;height:52px;margin:-26px 0 0 -26px;border-color:#ff2e93;box-shadow:0 0 16px #ff2e93,inset 0 0 10px rgba(255,46,147,.4)}#cring.down{width:24px;height:24px;margin:-12px 0 0 -12px}}
 @media (prefers-reduced-motion:reduce),(hover:none){#cring{display:none}}
+
+/* ===== Effets wow ===== */
+#intro{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#2a0c3e 0%,#0b0420 70%);cursor:pointer;overflow:hidden}
+#intro svg{width:min(88vw,760px);height:auto;overflow:visible}
+#intro .cut{font-family:Audiowide,system-ui,sans-serif;font-size:118px;fill:transparent;stroke:#3ff2ff;stroke-width:2;stroke-dasharray:1400;stroke-dashoffset:1400;filter:drop-shadow(0 0 6px #3ff2ff);animation:icut 1.5s cubic-bezier(.6,.1,.3,1) forwards,ifill .45s 1.45s forwards}
+#intro .sub{font-family:Rajdhani,system-ui,sans-serif;font-size:26px;letter-spacing:9px;fill:#fff;opacity:0;animation:isub .5s 1.55s forwards}
+#intro .skip{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:rgba(255,255,255,.55);font:600 .85rem Rajdhani,system-ui,sans-serif;letter-spacing:.15em;text-transform:uppercase}
+@keyframes icut{to{stroke-dashoffset:0}}
+@keyframes ifill{to{fill:#ff2e93;stroke:#fff;filter:drop-shadow(0 0 14px #ff2e93)}}
+@keyframes isub{to{opacity:.9}}
+#intro .curl{position:absolute;left:0;top:0;width:300vw;height:60px;transform-origin:50% 50%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35) 15%,#f4f4f6 45%,#c9cad4 75%,rgba(0,0,0,0));opacity:0;pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+/* coin qui se décolle */
+.stkcard,.why,.selcard{position:relative}
+.stkcard::after,.why::after,.selcard::after,.gstatic figure::after{content:"";position:absolute;right:0;bottom:0;width:0;height:0;border-radius:14px 0 14px 0;background:linear-gradient(315deg,#0b0420 0 50%,#fafafa 50%,#c9c9d3 78%,#8f8fa0 100%);box-shadow:-3px -3px 8px rgba(0,0,0,.45);transition:width .28s cubic-bezier(.3,1.6,.5,1),height .28s cubic-bezier(.3,1.6,.5,1);pointer-events:none;z-index:2}
+.gstatic figure{position:relative;container-type:inline-size}.gstatic figure::after{bottom:auto;top:100cqw;border-radius:12px 0 12px 0}
+.stkcard:hover::after,.why:hover::after,.selcard:hover::after{width:34px;height:34px}
+.gstatic figure:hover::after{width:38px;height:38px;top:calc(100cqw - 38px)}
+.gstatic figure:hover img{transform:rotate(-.6deg)}.gstatic img{transition:transform .25s}
+/* trace de lame */
+#blade{position:fixed;inset:0;pointer-events:none;z-index:99998}
+/* easter egg */
+.rain{position:fixed;top:-60px;z-index:99997;pointer-events:none;font:700 1rem Audiowide,system-ui,sans-serif;padding:6px 12px;border-radius:10px;border:2px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.4);animation:rain linear forwards;white-space:nowrap}
+@keyframes rain{to{transform:translateY(calc(100vh + 120px)) rotate(var(--r))}}
+#eggmsg{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);z-index:99999;padding:18px 26px;border-radius:18px;text-align:center;font:700 1.3rem Audiowide,system-ui,sans-serif;color:#fff;background:linear-gradient(140deg,#ff2e93,#7b3cff,#3ff2ff);box-shadow:0 0 40px #ff2e93;opacity:0;transition:opacity .3s,transform .3s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
+#eggmsg.show{opacity:1;transform:translate(-50%,-50%) scale(1)}#eggmsg small{display:block;font:600 .95rem Rajdhani,system-ui,sans-serif;margin-top:4px}
+@media (prefers-reduced-motion:reduce){#intro,#blade,.rain{display:none!important}}
 </style>
 </head>
 <body>
@@ -970,5 +996,27 @@ new MutationObserver(function(ms){if(LANG==="fr")return;ms.forEach(function(m){m
 <div id="cring" aria-hidden="true"></div><script>(function(){if(!matchMedia("(hover:hover) and (pointer:fine)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;var r=document.getElementById("cring"),x=-99,y=-99,cx=x,cy=y,go=0;var sel="a,button,label,select,summary,[role=tab],.stkcard,.why,input[type=radio],input[type=checkbox]";
 addEventListener("mousemove",function(e){x=e.clientX;y=e.clientY;r.classList.add("on");var t=e.target;r.classList.toggle("big",!!(t.closest&&t.closest(sel)));if(!go){go=1;requestAnimationFrame(f)}},{passive:true});
 document.addEventListener("mouseleave",function(){r.classList.remove("on")});addEventListener("mousedown",function(){r.classList.add("down")});addEventListener("mouseup",function(){r.classList.remove("down")});
-function f(){cx+=(x-cx)*.22;cy+=(y-cy)*.22;r.style.transform="translate("+cx+"px,"+cy+"px)";if(Math.abs(x-cx)>.3||Math.abs(y-cy)>.3)requestAnimationFrame(f);else go=0}})();</script></body>
+function f(){cx+=(x-cx)*.22;cy+=(y-cy)*.22;r.style.transform="translate("+cx+"px,"+cy+"px)";if(Math.abs(x-cx)>.3||Math.abs(y-cy)>.3)requestAnimationFrame(f);else go=0}})();</script><div id="intro" hidden aria-hidden="true"><svg viewBox="0 0 760 220"><text class="cut" x="380" y="135" text-anchor="middle">PAPSTICKS</text><text class="sub" x="380" y="190" text-anchor="middle">DÉCOUPE VINYLE · FLOCAGE</text></svg><div class="curl"></div><p class="skip">Clique pour entrer</p></div>
+<canvas id="blade" aria-hidden="true"></canvas><div id="eggmsg" role="status"></div>
+<script>(function(){var RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+/* 1. intro découpe */
+var it=document.getElementById("intro"),seen=false;try{seen=sessionStorage.getItem("pap_intro")==="1"}catch(e){}
+if(!RM&&!seen&&!/[?&]nointro/.test(location.search)){it.hidden=false;document.documentElement.style.overflow="hidden";var done=false;
+ function out(){if(done)return;done=true;try{sessionStorage.setItem("pap_intro","1")}catch(e){}var c=it.querySelector(".curl"),t0=performance.now(),W=innerWidth,H=innerHeight;c.style.opacity=1;(function st(n){var k=Math.min(1,(n-t0)/950),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,a=e*(W+H)*1.05;it.style.clipPath="polygon("+a+"px 0,100% 0,100% 100%,0 100%,0 "+a+"px)";c.style.transform="translate("+(a/2-W*1.5)+"px,"+(a/2-30)+"px) rotate(-45deg)";if(k<1)requestAnimationFrame(st);else{it.remove();document.documentElement.style.overflow=""}})(t0)}
+ it.addEventListener("click",out);addEventListener("keydown",out,{once:true});setTimeout(out,2700)}else it.remove();
+/* 2. trace de lame */
+var fine=matchMedia("(hover:hover) and (pointer:fine)").matches,cv=document.getElementById("blade");
+if(fine&&!RM){var cx=cv.getContext("2d"),pts=[],dpr=Math.min(devicePixelRatio||1,2),run=0;
+ function sz(){cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}sz();addEventListener("resize",sz);
+ addEventListener("mousemove",function(e){pts.push({x:e.clientX,y:e.clientY,t:performance.now()});if(!run){run=1;requestAnimationFrame(dr)}},{passive:true});
+ function dr(){var n=performance.now();pts=pts.filter(function(p){return n-p.t<420});cx.clearRect(0,0,innerWidth,innerHeight);
+  for(var i=1;i<pts.length;i++){var a=1-(n-pts[i].t)/420;cx.strokeStyle=i%2?"rgba(63,242,255,"+a+")":"rgba(255,46,147,"+a+")";cx.lineWidth=2.2*a;cx.lineCap="round";cx.shadowBlur=8;cx.shadowColor=cx.strokeStyle;cx.beginPath();cx.moveTo(pts[i-1].x,pts[i-1].y);cx.lineTo(pts[i].x,pts[i].y);cx.stroke()}
+  if(pts.length)requestAnimationFrame(dr);else{run=0;cx.clearRect(0,0,innerWidth,innerHeight)}}}else cv.remove();
+/* 4. easter egg : taper GTZ ou papsticks, ou 5 clics sur ステッカー */
+var buf="",last=0;function egg(){if(RM)return;var W=["PAPSTICKS","GTZ","#183","ステッカー","DRIFT","★","JDM","VINYLE","GT-R","🔥"],C=["#ff2e93","#3ff2ff","#7b3cff","#ffd400","#19e3d6","#ff6a00"];
+ for(var i=0;i<46;i++){(function(i){setTimeout(function(){var d=document.createElement("div");d.className="rain";d.textContent=W[i%W.length];d.style.left=(Math.random()*96)+"vw";d.style.background=C[i%C.length];d.style.color=i%C.length==3?"#111":"#fff";d.style.setProperty("--r",(Math.random()*720-360)+"deg");d.style.transform="rotate("+(Math.random()*40-20)+"deg)";d.style.animationDuration=(2.2+Math.random()*1.8)+"s";document.body.appendChild(d);setTimeout(function(){d.remove()},4300)},i*55)})(i)}
+ var m=document.getElementById("eggmsg");m.innerHTML="Bien joué ! 🎉<small>Tu as trouvé le secret Papsticks</small>";m.classList.add("show");setTimeout(function(){m.classList.remove("show")},2600)}
+ addEventListener("keydown",function(e){var t=e.target;if(t&&(t.tagName=="INPUT"||t.tagName=="TEXTAREA"||t.isContentEditable))return;if(e.key.length!==1)return;var n=Date.now();if(n-last>1500)buf="";last=n;buf=(buf+e.key.toUpperCase()).slice(-9);if(/GTZ$|PAPSTICKS$/.test(buf)){buf="";egg()}});
+ var jp=document.querySelector("header .jp"),k=0,kt=0;if(jp){jp.style.cursor="pointer";jp.addEventListener("click",function(){var n=Date.now();k=n-kt<800?k+1:1;kt=n;if(k>=5){k=0;egg()}})}
+})();</script></body>
 </html>
