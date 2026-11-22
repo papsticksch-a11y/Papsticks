@@ -1061,7 +1061,7 @@ var wb=document.getElementById("weedbtn");if(wb)wb.addEventListener("click",func
 var EVENTS=[];
 /* ===== PACK ÉVÉNEMENT : ouvert:true quand la précommande est lancée =====
    Exemple : {ouvert:true, nom:"Pack Japan Days 2027", fin:"2027-05-01", contenu:["Sticker vinyle or Ø 10 cm","T-shirt flex"], prix:"35 CHF"} */
-var PACK={ouvert:false};
+var PACK={ouvert:true, nom:"Pack GTZ : t-shirt + sticker", contenu:["1 t-shirt GTZ","1 sticker GTZ"], prix:"30 CHF"};
 var tr=function(x){try{return T(x)}catch(e){return x}},M=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
 function cd(d){var ms=new Date(d)-new Date(),j=Math.ceil(ms/864e5);return j>1?tr("dans")+" "+j+" "+tr("jours"):j===1?tr("demain"):j===0?tr("aujourd’hui !"):""}
 var IG='<a class="ig" href="https://www.instagram.com/gtz_suisseofficiel" target="_blank" rel="noopener">'+tr("Suivre @gtz_suisseofficiel")+'</a>',
