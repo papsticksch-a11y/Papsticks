@@ -392,11 +392,11 @@ h2.nf.on{animation:gzneon 1.1s both}
 .rsz-stk{display:block;background:linear-gradient(90deg,#ff2e93,#b55cff);border-radius:4px;box-shadow:0 0 10px rgba(255,46,147,.5);transition:width .25s,height .25s;min-width:3px;min-height:3px}
 .rsz-card{display:block;position:relative;border-radius:5px;background:linear-gradient(135deg,#3b82f6,#1e3a8a);border:1px solid rgba(255,255,255,.6);transition:width .25s,height .25s;flex:none}.rsz-card i{position:absolute;left:12%;top:32%;width:18%;height:22%;border-radius:2px;background:#facc15}
 .rsz-lab{margin:6px 0 0;font-size:.85rem;color:var(--muted)}.rsz-lab b{color:#fff;margin-right:4px}
-#cartfab{position:fixed;right:16px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:2px solid #ff2e93;background:rgba(14,6,40,.94);color:#fff;font:700 .95rem Rajdhani,system-ui,sans-serif;cursor:pointer;box-shadow:0 0 16px rgba(255,46,147,.5);transform:translateY(0);transition:opacity .25s,transform .25s}
-#cartfab[hidden]{display:flex!important;opacity:0;transform:translateY(20px);pointer-events:none}
+#cartfab{position:fixed;right:16px;top:calc(12px + env(safe-area-inset-top,0px));z-index:6;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:2px solid #ff2e93;background:rgba(14,6,40,.94);color:#fff;font:700 .95rem Rajdhani,system-ui,sans-serif;cursor:pointer;box-shadow:0 0 16px rgba(255,46,147,.5);transform:translateY(0);transition:opacity .25s,transform .25s}
+#cartfab[hidden]{display:flex!important;opacity:0;transform:translateY(-20px);pointer-events:none}
 #cartfab .cn{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#ff2e93;font-size:.8rem}
 #cartfab.bump{animation:addok .5s}
-</style>
+@media(max-width:819px){#cartfab{top:calc(62px + env(safe-area-inset-top,0px));right:8px;padding:6px 10px;gap:5px;font-size:.85rem;border-width:1.5px}#cartfab #cft{display:none}body.hascart .bgsw{padding-right:58px;justify-content:flex-start}#cartfab .cn{min-width:18px;height:18px;font-size:.72rem}}</style>
 </head>
 <body>
 <header>
@@ -1305,7 +1305,7 @@ function rsz(){if(!stk||typeof L!=="function")return;var len=L(),vb=(document.ge
 if(stk){var sv=document.getElementById("svg");new MutationObserver(rsz).observe(sv,{attributes:true,attributeFilter:["viewBox"]});["len","text"].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener("input",function(){setTimeout(rsz,30)})});addEventListener("resize",rsz);setTimeout(rsz,300);setTimeout(rsz,1500)}
 /* 3. compteur panier flottant */
 var fab=document.getElementById("cartfab"),items=document.getElementById("items"),sub=document.getElementById("subtotal"),cartEl=document.getElementById("cart"),inView=false,last=0;
-function upd(){var n=(typeof cart!=="undefined"&&cart)?cart.length:0;document.getElementById("cfn").textContent=n;document.getElementById("cft").textContent=sub?sub.textContent:"";fab.hidden=!n||inView;if(n>last){fab.classList.remove("bump");void fab.offsetWidth;fab.classList.add("bump")}last=n}
+function upd(){var n=(typeof cart!=="undefined"&&cart)?cart.length:0;document.getElementById("cfn").textContent=n;document.getElementById("cft").textContent=sub?sub.textContent:"";fab.hidden=!n||inView;document.body.classList.toggle("hascart",!!n);if(n>last){fab.classList.remove("bump");void fab.offsetWidth;fab.classList.add("bump")}last=n}
 if(items&&fab){new MutationObserver(upd).observe(items,{childList:true});if("IntersectionObserver" in window&&cartEl)new IntersectionObserver(function(es){inView=es[0].isIntersecting;upd()},{threshold:.15}).observe(cartEl);fab.addEventListener("click",function(){cartEl.scrollIntoView({behavior:"smooth",block:"start"})});upd()}
 })();</script></body>
 </html>
