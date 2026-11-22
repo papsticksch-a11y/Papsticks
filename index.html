@@ -275,23 +275,12 @@ a,button,label,select,summary,[role=tab],.stkcard,.why,.part-tab,[onclick],input
 #eggmsg.show{opacity:1;transform:translate(-50%,-50%) scale(1)}#eggmsg small{display:block;font:600 .95rem Rajdhani,system-ui,sans-serif;margin-top:4px}
 @media (prefers-reduced-motion:reduce){#intro,.rain{display:none!important}}
 @media(max-width:560px){.parts{gap:5px}.parts button{font-size:.78rem;padding:10px 3px}}
-/* aperçu voiture */
 .bgsw{flex-wrap:wrap}
-.preview{position:relative}
-#carbg,.carcols{display:none}
-.preview.car{display:block;padding:0;min-height:0;aspect-ratio:600/340;overflow:hidden;background:#0d0820}
-.preview.car #carbg{display:block;position:absolute;inset:0}#carbg svg{width:100%;height:100%;display:block}
-.preview.car .wrap{position:absolute;left:50%;top:41.5%;transform:translate(-50%,-50%) perspective(400px) rotateX(14deg);z-index:2}
-.preview.car .carcols{display:flex;gap:6px;position:absolute;left:10px;bottom:10px;z-index:3}
-.carcols button{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.5);padding:0;cursor:pointer}.carcols button[aria-pressed="true"]{border-color:#3ff2ff;box-shadow:0 0 8px #3ff2ff}
 /* échenillage */
 .wrap{position:relative}
 #weedcv{position:absolute;left:-5%;top:-14%;width:110%;height:128%;touch-action:none;z-index:3;border-radius:6px;transition:opacity .6s}
 .weedhint{position:absolute;top:8px;left:0;right:0;margin:0;text-align:center;font:600 .85rem Rajdhani,system-ui,sans-serif;color:#fff;text-shadow:0 1px 4px #000;z-index:4;pointer-events:none;letter-spacing:.05em}
 #weedbtn{border-color:#3ff2ff!important;color:#3ff2ff!important}
-/* parallaxe */
-body::before{transform:translate3d(var(--px,0px),var(--py,0px),0) scale(1.05);transition:transform .35s ease-out;will-change:transform}
-@media (prefers-reduced-motion:reduce){body::before{transform:none!important}}
 </style>
 </head>
 <body>
@@ -313,7 +302,7 @@ body::before{transform:translate3d(var(--px,0px),var(--py,0px),0) scale(1.05);tr
 <div class="part two" id="part-pap" data-part="pap">
 <details class="subdrop" id="subdrop"><summary><span class="sdl">Catégorie</span><b id="sdcur">Stickers Instagram</b><span class="sdar" aria-hidden="true">▾</span></summary><div class="sdmenu"><div class="sdg"><p class="tgh">Stickers</p><div class="quick sub2"><button type="button" data-sub-go="stk" aria-selected="true">Stickers Instagram</button><button type="button" data-sub-go="img" aria-selected="false">Stickers personnalisés (devis)</button><button type="button" data-sub-go="chs" aria-selected="false">Stickers</button></div></div><div class="sdg"><p class="tgh">Vêtements</p><div class="quick sub2"><button type="button" data-sub-go="vet" aria-selected="false">Vêtements (Papsticks)</button><button type="button" data-sub-go="vimg" aria-selected="false">Mon vêtement personnalisé (devis)</button></div></div><div class="sdg"><p class="tgh">Accessoires</p><div class="quick sub2"><button type="button" data-sub-go="acc" aria-selected="false">Accessoires auto</button><button type="button" data-sub-go="mug" aria-selected="false">Mug personnalisé</button></div></div></div></details>
 <section class="card stick" aria-label="Aperçu">
-<div class="bgsw" role="group" aria-label="Fond de l’aperçu"><button type="button" data-bg="dark" aria-pressed="false">Fond foncé</button><button type="button" data-bg="light" aria-pressed="false">Fond clair</button><button type="button" data-bg="car" aria-pressed="false">🚗 Sur une voiture</button><button type="button" id="weedbtn">✂️ Échenille-le</button></div><div class="preview" id="prev"><div id="carbg" aria-hidden="true"></div><div class="carcols" id="carcols" aria-label="Couleur de la voiture"></div><p class="weedhint" id="weedhint" hidden>Frotte pour retirer le surplus de vinyle</p><div class="wrap" id="wrap">
+<div class="bgsw" role="group" aria-label="Fond de l’aperçu"><button type="button" data-bg="dark" aria-pressed="false">Fond foncé</button><button type="button" data-bg="light" aria-pressed="false">Fond clair</button><button type="button" id="weedbtn">✂️ Échenille-le</button></div><div class="preview" id="prev"><p class="weedhint" id="weedhint" hidden>Frotte pour retirer le surplus de vinyle</p><div class="wrap" id="wrap">
 <svg id="svg" viewBox="0 0 400 100" role="img" aria-label="Aperçu du sticker">
 <defs>
 <linearGradient id="gmiami" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="400" y2="0"><stop offset="0" stop-color="#ff2e93"/><stop offset="1" stop-color="#19e3d6"/></linearGradient>
@@ -651,7 +640,7 @@ txt.setAttribute("fill",p);$("logo").setAttribute("stroke",p);$("dot").setAttrib
 $("art").setAttribute("filter",st.finish==="Brillante"?"url(#glow)":"none");
 var hx=COLORS[st.color]||"#ffffff",lum=1;
 if(hx.length===7)lum=(parseInt(hx.substr(1,2),16)*299+parseInt(hx.substr(3,2),16)*587+parseInt(hx.substr(5,2),16)*114)/255000;
-var car=BGM==="car",lt=!car&&(BGM==="light"||(BGM==="auto"&&lum<0.25&&!st.fx));$("prev").className="preview"+(lt?" light":"")+(car?" car":"");[].forEach.call(document.querySelectorAll(".bgsw button[data-bg]"),function(b){var g=b.getAttribute("data-bg");b.setAttribute("aria-pressed",(car?g==="car":g!=="car"&&(g==="light")===lt)?"true":"false")});
+var car=false,lt=(BGM==="light"||(BGM==="auto"&&lum<0.25&&!st.fx));$("prev").className="preview"+(lt?" light":"")+(car?" car":"");[].forEach.call(document.querySelectorAll(".bgsw button[data-bg]"),function(b){var g=b.getAttribute("data-bg");b.setAttribute("aria-pressed",(car?g==="car":g!=="car"&&(g==="light")===lt)?"true":"false")});
 $("cname").textContent=st.fx?"":T("Vinyle")+" "+CODES[st.color]+SEP()+st.color;
 var pct=car?Math.min(96,L()*2.17/6):62+38*(L()-5)/95;$("wrap").style.width=pct+"%";
 $("lenv").textContent=L()+" cm";
@@ -1028,10 +1017,6 @@ var buf="",last=0;function egg(){if(RM)return;var W=["PAPSTICKS","GTZ","#183","�
  addEventListener("keydown",function(e){var t=e.target;if(t&&(t.tagName=="INPUT"||t.tagName=="TEXTAREA"||t.isContentEditable))return;if(e.key.length!==1)return;var n=Date.now();if(n-last>1500)buf="";last=n;buf=(buf+e.key.toUpperCase()).slice(-9);if(/GTZ$|PAPSTICKS$/.test(buf)){buf="";egg()}});
  var jp=document.querySelector("header .jp"),k=0,kt=0;if(jp){jp.style.cursor="pointer";jp.addEventListener("click",function(){var n=Date.now();k=n-kt<800?k+1:1;kt=n;if(k>=5){k=0;egg()}})}
 })();</script><script>(function(){
-/* aperçu voiture */
-var cb=document.getElementById("carbg"),cc=document.getElementById("carcols");if(cb){cb.innerHTML='<svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="cnight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b0b3a"/><stop offset=".62" stop-color="#3a0f4a"/><stop offset=".63" stop-color="#14102a"/><stop offset="1" stop-color="#0a0718"/></linearGradient><linearGradient id="cglass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c0f1a"/><stop offset="1" stop-color="#1c2236"/></linearGradient><linearGradient id="cshade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient><radialGradient id="cglow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff2e93" stop-opacity=".5"/><stop offset="1" stop-color="#ff2e93" stop-opacity="0"/></radialGradient></defs><rect width="600" height="340" fill="url(#cnight)"/><circle cx="470" cy="70" r="38" fill="#ff2e93" opacity=".55"/><g stroke="#3ff2ff" stroke-opacity=".35" stroke-width="1"><path d="M0 212 L600 212"/><path d="M300 212 L-200 340M300 212 L800 340M300 212 L100 340M300 212 L500 340"/></g><ellipse cx="300" cy="300" rx="275" ry="22" fill="#000" opacity=".55"/><rect x="72" y="270" width="78" height="44" rx="10" fill="#0b0b0f"/><rect x="450" y="270" width="78" height="44" rx="10" fill="#0b0b0f"/><path id="carbody" d="M210 64 Q300 55 390 64 L455 166 Q542 178 556 214 L560 276 Q560 292 544 292 L56 292 Q40 292 40 276 L44 214 Q58 178 145 166 Z" fill="#15151b"/><path d="M210 64 Q300 55 390 64 L455 166 Q542 178 556 214 L560 276 Q560 292 544 292 L56 292 Q40 292 40 276 L44 214 Q58 178 145 166 Z" fill="url(#cshade)"/><path d="M222 76 Q300 69 378 76 L432 162 Q300 171 168 162 Z" fill="url(#cglass)" stroke="#000" stroke-width="3"/><path d="M250 80 L285 78 L222 160 L190 160 Z" fill="#fff" opacity=".06"/><rect x="62" y="194" width="476" height="7" rx="3.5" fill="#ff1f3d" opacity=".9"/><rect x="62" y="190" width="150" height="20" rx="9" fill="#ff1f3d"/><rect x="388" y="190" width="150" height="20" rx="9" fill="#ff1f3d"/><ellipse cx="137" cy="200" rx="110" ry="22" fill="url(#cglow)"/><ellipse cx="463" cy="200" rx="110" ry="22" fill="url(#cglow)"/><rect x="254" y="226" width="92" height="30" rx="5" fill="#f2f2f2" stroke="#222" stroke-width="2"/><text x="300" y="248" text-anchor="middle" font-family="Audiowide,system-ui,sans-serif" font-size="17" fill="#111">FR 183</text><path d="M60 262 L540 262 L548 288 L52 288 Z" fill="#000" opacity=".45"/><g fill="#000" opacity=".6"><rect x="200" y="268" width="10" height="20" rx="2"/><rect x="230" y="268" width="10" height="20" rx="2"/><rect x="360" y="268" width="10" height="20" rx="2"/><rect x="390" y="268" width="10" height="20" rx="2"/></g><circle cx="250" cy="279" r="8" fill="#555"/><circle cx="350" cy="279" r="8" fill="#555"/></svg>';
-var CC={"Noir":"#15151b","Blanc":"#e6e7ec","Gris":"#5f6673","Rouge":"#a3121f","Bleu":"#1d3fa8","Orange":"#e06a00"};
-Object.keys(CC).forEach(function(k,i){var b=document.createElement("button");b.type="button";b.title=k;b.setAttribute("aria-label",k);b.style.background=CC[k];b.setAttribute("aria-pressed",i?"false":"true");b.onclick=function(){document.getElementById("carbody").setAttribute("fill",CC[k]);[].forEach.call(cc.children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")})};cc.appendChild(b)})}
 /* échenillage */
 var wb=document.getElementById("weedbtn");if(wb)wb.addEventListener("click",function(){var wrap=document.getElementById("wrap"),old=document.getElementById("weedcv");if(old)old.remove();
  var cv=document.createElement("canvas");cv.id="weedcv";wrap.appendChild(cv);var r=cv.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);cv.width=Math.max(40,r.width*dpr);cv.height=Math.max(20,r.height*dpr);var x=cv.getContext("2d");
@@ -1045,10 +1030,5 @@ var wb=document.getElementById("weedbtn");if(wb)wb.addEventListener("click",func
  cv.addEventListener("pointermove",function(e){if(!down)return;var q=pos(e);x.beginPath();x.moveTo(lx,ly);x.lineTo(q[0],q[1]);x.stroke();lx=q[0];ly=q[1];if(++n%8==0)check()});
  addEventListener("pointerup",function(){if(down){down=false;check()}});
  cv.scrollIntoView&&cv.getBoundingClientRect().top<0&&cv.scrollIntoView({block:"center"})});
-/* parallaxe */
-if(!matchMedia("(prefers-reduced-motion:reduce)").matches){var de=document.documentElement,tx=0,ty=0,raf=0;function set(){raf=0;de.style.setProperty("--px",tx.toFixed(1)+"px");de.style.setProperty("--py",ty.toFixed(1)+"px")}
- function q(a,b){tx=a;ty=b;if(!raf)raf=requestAnimationFrame(set)}
- addEventListener("mousemove",function(e){q((e.clientX/innerWidth-.5)*-22,(e.clientY/innerHeight-.5)*-14)},{passive:true});
- addEventListener("deviceorientation",function(e){if(e.gamma==null)return;q(Math.max(-1,Math.min(1,e.gamma/30))*-16,Math.max(-1,Math.min(1,(e.beta-45)/30))*-10)},{passive:true})}
 })();</script></body>
 </html>
